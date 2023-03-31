@@ -78,6 +78,7 @@ jobs:
 
   push_to_mirror:
     if: ${{ github.event_name == 'push' }}
+    needs: [check_coding_style, check_program_compilation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
