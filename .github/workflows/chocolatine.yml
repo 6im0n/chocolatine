@@ -27,8 +27,8 @@ jobs:
           cat coding-style-reports.log | while read line; do
             echo "::error file=$(echo $line | cut -d ':' -f 1),\
             line=$(echo $line | cut -d ':' -f 2),\
-            title=$(echo $line | cut -d ':' -f 3)"::\
-            coding style error"$(echo $line | cut -d ':' -f 4)"
+            title=$(echo $line | cut -d ':' -f 3)"\
+            coding style error::"$(echo $line | cut -d ':' -f 4)"
           done
           if [ -s coding-style-reports.log ]; then
             exit 1
