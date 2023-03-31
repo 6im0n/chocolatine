@@ -11,8 +11,9 @@ int main(int argc, char const *argv[])
     //test error coding style
     printf("Hello World\n");
     return 0;
+    test_bad();
 }
 int test(void)
 {
-    
+
 }
