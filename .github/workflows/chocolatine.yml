@@ -10,7 +10,7 @@ on:
 
 env: 
   MIRROR_URL: "git@github.com:EpitechPromo2027/B-DOP-200-NAN-2-1-chocolatine-simon.ganier-lombard.git"
-  EXECUTABLES: "test"
+  EXECUTABLES: ""
 
 jobs:
   check_coding_style:
@@ -41,3 +41,28 @@ jobs:
           fi
         continue-on-error: false
   
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - id: make_program
+        run: make
+        job.make_program.steps.timeout-minutes: 2
+        continue-on-error: true
+      - id: make_clean
+        run: make clean
+        continue-on-error: true
+      - id: check_presence_of_executables
+        run: |
+          if [ -z "$EXECUTABLES" ]; then
+            echo "No executable to check"
+            exit 0
+          fi
+          for executable in $EXECUTABLES; do
+            if [ ! -f $executable ]; then
+              echo "Executable : $executable not found"
+              exit 1
+            fi
+          done
+        continue-on-error: false
