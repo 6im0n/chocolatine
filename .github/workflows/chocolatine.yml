@@ -19,5 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: check_coding_style
-        run: check.sh $(pwd) $(pwd)
+        run: |
+          CODING_STYLE_ERRORS=$(check.sh $(pwd) $(pwd))
+          for ERRORS in $CODING_STYLE_ERRORS; do
+            array=(`echo $ERRORS | sed 's/:/\n/g'`)
+            echo "::error file=${array[1]#./},title=${array[3]#./} coding style errors detected: ${array[2]#./}::${array[4]#./}"
+          done
+          if [[ -n $CODING_STYLE_ERRORS ]]
+          then
+            exit 1
+          else
+            echo No coding style errors detected
+          fi
   
