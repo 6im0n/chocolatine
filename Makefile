@@ -11,7 +11,7 @@ SRC			=	print.c
 
 OBJ			=	$(SRC:.c=.o)
 
-NAME		=	test_print
+NAME		=	test_printk
 
 $(NAME):	 $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
