@@ -66,3 +66,13 @@ jobs:
             fi
           done
         continue-on-error: false
+
+  run_tests:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - id: run_tests
+        run: make tests_run
+        timeout-minutes: 2
+      
