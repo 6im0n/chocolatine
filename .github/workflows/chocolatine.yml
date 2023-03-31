@@ -19,16 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: check_coding_style
+        run: check.sh $(pwd) $(pwd)
+      - name: Anotation of the coding style
         run: |
-          CODING_STYLE_ERRORS=$(check.sh $(pwd) $(pwd))
-          for ERRORS in $CODING_STYLE_ERRORS; do
-            array=(`echo $ERRORS | sed 's/:/\n/g'`)
-            echo "::error file=${array[1]#./},title=${array[3]#./} coding style errors detected: ${array[2]#./}::${array[4]#./}"
+          cat coding-style-reports.log | while read line; do
+            echo "::error file=$(echo $line | cut -d ':' -f 1),\
+          line=$(echo $line | cut -d ':' -f 2),title=$(echo $line | cut -d ':' -f 3)"\
+           coding style error"::$(echo $line | cut -d ':' -f 4)"
           done
-          if [[ -n $CODING_STYLE_ERRORS ]]
-          then
+          if [ -s coding-style-reports.log ]; then
             exit 1
           else
-            echo No coding style errors detected
+            echo "::notice::No coding style error found."
           fi
+        
   
