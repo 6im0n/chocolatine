@@ -25,11 +25,10 @@ jobs:
         continue-on-error: true
 
       - name: Anotation of the coding style
-      #redirect to a specific line in a file when a Github Actions is clicked
-      # so we need to include the file name, the line number and the error message
-      # as this example : echo "::error file=path/to/file.cpp,line=42::Error message"
-      # if the file is empty (no coding style error) then we print a notice and continue the workflow
-      # if the file is not empty (coding style error) then we print an error and stop the workflow
+        # redirect to a specific line in a file when a Github Actions is clicked so we need to include the file name, the line number and the error message
+        # as this example : echo "::error file=path/to/file.cpp,line=42::Error message"
+        # if the file is empty (no coding style error) then we print a notice and continue the workflow
+        # if the file is not empty (coding style error) then we print an error and stop the workflow
         run: |
           cat coding-style-reports.log | while read line; do
             echo "::error file=$(echo $line | cut -d ':' -f 1),\ 
@@ -43,4 +42,6 @@ jobs:
             echo "::notice::No coding style error found."
           fi
         continue-on-error: false
-    
+
+check_program_compilation:
+
