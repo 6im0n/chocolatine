@@ -19,5 +19,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: check_coding_style
-      run: check.sh $(pwd) $(pwd)
+        run: check.sh $(pwd) $(pwd)
   
