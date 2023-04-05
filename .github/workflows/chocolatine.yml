@@ -18,13 +18,6 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v3
-      - id: make_program
-        run: make
-        timeout-minutes: 2
-        continue-on-error: true
-      - id: make_clean
-        run: make clean
-        continue-on-error: true
       - id: check_presence_of_pushed_executables
         run: |
           if [ -z "$EXECUTABLES" ]
