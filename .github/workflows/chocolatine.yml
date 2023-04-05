@@ -38,7 +38,7 @@ jobs:
         continue-on-error: false
   
   check_coding_style:
-    needs: [check_push_executable]
+    needs: [check_pushed_executable]
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
@@ -67,7 +67,7 @@ jobs:
         continue-on-error: false
 
   check_program_compilation:
-    needs: [check_push_executable]
+    needs: [check_pushed_executable]
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
@@ -94,7 +94,7 @@ jobs:
         continue-on-error: false
 
   run_tests:
-    needs: [check_push_executable]
+    needs: [check_pushed_executable]
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
