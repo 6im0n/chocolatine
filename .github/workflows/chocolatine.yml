@@ -27,18 +27,20 @@ jobs:
         continue-on-error: true
       - id: check_presence_of_pushed_executables
         run: |
-          if [ -z "$EXECUTABLES" ]; then
+          if [ -z "$EXECUTABLES" ]
+          then
             echo "No executable to check"
             exit 0
           fi
           for executable in $EXECUTABLES; do
-            if [ ! -f $executable ]; then
+            if [ ! -f $executable ]
+            then
               echo "NO executable are pushed! good !"
               exit 0
-            fi
             else
               echo "executable are pushed! BAD!!!"
               exit 1
+            fi
           done
         continue-on-error: false
   
