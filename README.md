@@ -4,7 +4,6 @@
 
 Set of automated actions that you will be able to use in all your other projects
 
-<a>https://www.coppeliarobotics.com/files/CoppeliaSim_Edu_V4_3_0_Ubuntu20_04.tar.xz</a>
 
 ---
 
