@@ -13,7 +13,7 @@ env:
   EXECUTABLES: "test_print"
 
 jobs:
-  check_push_executable:
+  check_pushed_executable:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
