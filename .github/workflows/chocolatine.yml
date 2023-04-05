@@ -13,6 +13,35 @@ env:
   EXECUTABLES: "test_print"
 
 jobs:
+  check_push_executable:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - id: make_program
+        run: make
+        timeout-minutes: 2
+        continue-on-error: true
+      - id: make_clean
+        run: make clean
+        continue-on-error: true
+      - id: check_presence_of_pushed_executables
+        run: |
+          if [ -z "$EXECUTABLES" ]; then
+            echo "No executable to check"
+            exit 0
+          fi
+          for executable in $EXECUTABLES; do
+            if [ ! -f $executable ]; then
+              echo "NO executable are pushed! good !"
+              exit 0
+            fi
+            else
+              echo "executable are pushed! BAD!!!"
+              exit 1
+          done
+        continue-on-error: false
+  
   check_coding_style:
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
@@ -40,7 +69,7 @@ jobs:
             echo "::notice::No coding style error found."
           fi
         continue-on-error: false
-  
+
   check_program_compilation:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
@@ -78,7 +107,7 @@ jobs:
 
   push_to_mirror:
     if: ${{ github.event_name == 'push' }}
-    needs: [check_coding_style, check_program_compilation]
+    needs: [check_coding_style, check_program_compilation, check_push_executable]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
