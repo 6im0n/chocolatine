@@ -81,7 +81,7 @@ jobs:
             exit 0
           fi
           for executable in $EXECUTABLES; do
-            if [ ! -f $executable ]; then
+            if [ ! -x $executable ]; then
               echo "Executable : $executable not found"
               exit 1
             fi
