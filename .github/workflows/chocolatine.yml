@@ -35,7 +35,6 @@ jobs:
               exit 1
             fi
           done
-        continue-on-error: false
   
   check_coding_style:
     needs: [check_pushed_executable]
@@ -45,7 +44,6 @@ jobs:
       - uses: actions/checkout@v3
       - id: check_coding_style
         run: check.sh $(pwd) $(pwd)
-        continue-on-error: true
         #redirect to a specific line in a file when a Github Actions is clicked
         # so we need to include the file name, the line number and the error message
         # as this example : echo "::error file=path/to/file.cpp,line=42::Error message"
@@ -64,7 +62,6 @@ jobs:
           else
             echo "::notice::No coding style error found."
           fi
-        continue-on-error: false
 
   check_program_compilation:
     needs: [check_pushed_executable]
@@ -75,10 +72,8 @@ jobs:
       - id: make_program
         run: make
         timeout-minutes: 2
-        continue-on-error: true
       - id: make_clean
         run: make clean
-        continue-on-error: true
       - id: check_presence_of_executables
         run: |
           if [ -z "$EXECUTABLES" ]; then
@@ -91,7 +86,6 @@ jobs:
               exit 1
             fi
           done
-        continue-on-error: false
 
   run_tests:
     needs: [check_pushed_executable]
