@@ -18,7 +18,7 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v3
-      - id: check_presence_of_pushed_executables
+      - name : check_presence_of_pushed_executables
         run: |
           if [ -z "$EXECUTABLES" ]
           then
@@ -42,7 +42,7 @@ jobs:
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
       - uses: actions/checkout@v3
-      - id: check_coding_style
+      - name : check_coding_style
         run: check.sh $(pwd) $(pwd)
         #redirect to a specific line in a file when a Github Actions is clicked
         # so we need to include the file name, the line number and the error message
@@ -69,12 +69,12 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v3
-      - id: make_program
+      - name: make_program
         run: make
         timeout-minutes: 2
-      - id: make_clean
+      - name: make_clean
         run: make clean
-      - id: check_presence_of_executables
+      - name: check_presence_of_executables
         run: |
           if [ -z "$EXECUTABLES" ]; then
             echo "No executable to check"
@@ -93,7 +93,7 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v3
-      - id: run_tests
+      - name: run_tests
         run: make tests_run
         timeout-minutes: 2
 
